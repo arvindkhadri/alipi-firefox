@@ -1,0 +1,8 @@
+<!ENTITY a11ypi.label "Your localized menuitem">
+<!ENTITY a11ypiContext.label "Your Menuitem">
+<!ENTITY a11ypiContext.accesskey "Y">
+<!ENTITY a11ypiToolbarButton.label "Replace">
+<!ENTITY a11ypiToolbarButton.tooltip "a11ypi">
+<!ENTITY a11ypiSidebar.label "Your Sidebar">
+<!ENTITY a11ypiToolbar.name  "example">
+<!ENTITY a11ypiToolbar.label "This is an example toolbar. You can hide it under View &gt; toolbars &gt; &a11ypiToolbar.name;">

@@ -1,0 +1,22 @@
+/* This is just an example.  You shouldn't do this. */
+#a11ypi-hello
+{
+  color: red ! important;
+}
+#a11ypi-toolbar-button
+{
+  list-style-image: url("chrome://a11ypi/skin/toolbar-button.png");
+  -moz-image-region: rect(0px 24px 24px 0px);
+}
+#a11ypi-toolbar-button:hover
+{
+  -moz-image-region: rect(24px 24px 48px  0px);
+}
+[iconsize="small"] #a11ypi-toolbar-button
+{
+  -moz-image-region: rect( 0px 40px 16px 24px);
+}
+[iconsize="small"] #a11ypi-toolbar-button:hover
+{
+  -moz-image-region: rect(24px 40px 40px 24px);
+}
