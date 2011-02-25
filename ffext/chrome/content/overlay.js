@@ -16,7 +16,8 @@ var a11ypi = {
 
   onToolbarButtonCommand: function(e) {
     // just reuse the function above.  you can change this, obviously!
-	a11ypi.getURL();
+	//a11ypi.getURL();
+	alert(e.getAttribute("value"));
     },
 
     // onClick: function() {
@@ -34,47 +35,76 @@ var a11ypi = {
     // 		alert(e.name);
     // 	    }
     // }
-    getURL: function() {
+    getURL: function(e) {
 	var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]     //The service branch which handles the "Window".
 	.getService(Components.interfaces.nsIWindowMediator);
 	var recentWindow = wm.getMostRecentWindow("navigator:browser");
 
-	this.prefs = Components.classes["@mozilla.org/preferences-service;1"]      //Used to fetch the preference service
-	.getService(Components.interfaces.nsIPrefService)                          
-	.getBranch("extensions.a11ypi.");                                         //We want only our branch.
-    	this.prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
-	this.sym = this.prefs.getCharPref("stringpref");                                  //Gets the prefernece entered by the user.
+	// this.prefs = Components.classes["@mozilla.org/preferences-service;1"]      //Used to fetch the preference service
+	// .getService(Components.interfaces.nsIPrefService)                          
+	// .getBranch("extensions.a11ypi.");                                         //We want only our branch.
+    	// this.prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
+	// this.sym = this.prefs.getCharPref("stringpref");
+	//Gets the prefernece entered by the user.
 	recentWindow ? recentWindow.content.document.location : null;
-	alert(content.window.location);
-	a11ypi.ajax(content.window.location, this.sym);
+	var url = content.window.location;
+	content.window.location = "http://localhost/test?url="+url+"&lang="+e.getAttribute("value");
+	content.window.reload()
     },
-    ajax: function(loc,pref) {
-	// var mainWindow = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-	// .getInterface(Components.interfaces.nsIWebNavigation)
-	// .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
-	// .rootTreeItem
-	// .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-	// .getInterface(Components.interfaces.nsIDOMWindow);
-	var xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function() 
-	{
-	    if(xhr.readyState == 4)
-		{
-		    //alert(xhr.responseText);
-		    //gBrowser.selectedTab = gBrowser.addTab("");
-		    //var doc = gBrowser.contentDocument;
-		    //doc.write(xhr.responseText);
-		    //doc.close();
-		    var url = 'data:text/html,'+escape(xhr.responseText);
-		    gBrowser.selectedTab = gBrowser.addTab(url);
+     ajax: function(url) {
+    	var xhr = new XMLHttpRequest();
+    	xhr.onreadystatechange = function() 
+    	{  
+    	    if(xhr.readyState == 4)
+    		{
+		    if(xhr.responseText == "None")
+			{
+			    a11ypi.clearMenu();
+			}
+		    else
+			{
+			    a11ypi.createMenu(JSON.parse(xhr.responseText));
+			}
 		}
-	}
-	xhr.open("POST","http://localhost/test",true);
-	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-	var data = "url="+loc+'&'+"lang="+pref;
-	alert(data);
-	xhr.send(data);
-    }
+    	}
+    	xhr.open("POST","http://localhost/menu",true);
+    	//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	xhr.send(String(url));
+    },
+    onMenuPopUp: function(e) {
+	var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]     //The service branch which handles the "Window".
+	.getService(Components.interfaces.nsIWindowMediator);
+	var recentWindow = wm.getMostRecentWindow("navigator:browser");
+	a11ypi.ajax(content.window.location);
+	//xyz = document.getElementById("menu-button");
+	// newel = document.createElement("menuitem");
+	// newtext = document.createTextNode("Hello world");
+	// newel.appendChild(newtext);
+	// //newel.setAttribute("oncommand","a11ypi.ajax();");
+	// newel.setAttribute("oncommand","a11ypi.onToolbarButtonCommand(event);");
+	// xyz.appendChild(newel);
+	//a11ypi.ajax();
+	return "True";
+    },
+    createMenu: function(menu_list) {
+	xyz = document.getElementById("menu-button");
+	for(var i in menu_list)
+	    {
+		newel = document.createElement("menuitem");
+		//newtext = document.createTextNode(menu_list[i]);
+		//newel.appendChild(newtext);
+		newel.setAttribute("label",menu_list[i]);
+		newel.setAttribute("value",menu_list[i]);
+		newel.setAttribute("oncommand","a11ypi.getURL(event.target);");
+		xyz.appendChild(newel);
+	    }
+    },
+    clearMenu: function() {
+	xyz = document.getElementsByTagName("menuitem");
+	for(var i=0;i<(xyz.childNodes.length + 1);i++)
+	    {
+		xyz.removeChild(xyz.childNodes[i]);
+	    } 
+    },
 };
 window.addEventListener("load", function () { a11ypi.onLoad(); }, false);
-window.addEventListener("click", function() { a11ypi.onToolbarButtonCommand(event); }, false);

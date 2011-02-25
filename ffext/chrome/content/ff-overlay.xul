@@ -8,10 +8,11 @@
   <stringbundleset id="stringbundleset">
     <stringbundle id="a11ypi-strings" src="chrome://a11ypi/locale/overlay.properties"/>
   </stringbundleset>
-  
   <toolbarpalette id="BrowserToolbarPalette">
-  <toolbarbutton id="a11ypi-toolbar-button" class="toolbarbutton-1"
-    label="&a11ypiToolbarButton.label;" tooltiptext="&a11ypiToolbarButton.tooltip;"
-    oncommand="a11ypi.onToolbarButtonCommand(event);"/>
-</toolbarpalette>
+    <toolbarbutton id="a11ypi-toolbar-button" class="toolbarbutton-1"
+		   label="&a11ypiToolbarButton.label;" tooltiptext="&a11ypiToolbarButton.tooltip;" type="menu">
+      <menupopup id="menu-button" onpopupshowing="a11ypi.onMenuPopUp(event);" onpopuphiding="a11ypi.clearMenu();">
+      </menupopup>
+    </toolbarbutton>
+  </toolbarpalette> 
 </overlay>
