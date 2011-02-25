@@ -1,7 +1,5 @@
 var a11ypi = {
-    prefs : null,
-    sym : "",
-  onLoad: function() {
+    onLoad: function() {
     // initialization code
     this.initialized = true;
     this.strings = document.getElementById("a11ypi-strings");
@@ -15,11 +13,9 @@ var a11ypi = {
   },
 
   onToolbarButtonCommand: function(e) {
-    // just reuse the function above.  you can change this, obviously!
-	//a11ypi.getURL();
 	alert(e.getAttribute("value"));
     },
-
+    //The following is a important code snippet, DO NOT DELETE.
     // onClick: function() {
     // 	this.prefs = Components.classes["@mozilla.org/preferences-service;1"]
     // 				.getService(Components.interfaces.nsIPrefService)
@@ -39,13 +35,6 @@ var a11ypi = {
 	var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]     //The service branch which handles the "Window".
 	.getService(Components.interfaces.nsIWindowMediator);
 	var recentWindow = wm.getMostRecentWindow("navigator:browser");
-
-	// this.prefs = Components.classes["@mozilla.org/preferences-service;1"]      //Used to fetch the preference service
-	// .getService(Components.interfaces.nsIPrefService)                          
-	// .getBranch("extensions.a11ypi.");                                         //We want only our branch.
-    	// this.prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
-	// this.sym = this.prefs.getCharPref("stringpref");
-	//Gets the prefernece entered by the user.
 	recentWindow ? recentWindow.content.document.location : null;
 	var url = content.window.location;
 	content.window.location = "http://localhost/test?url="+url+"&lang="+e.getAttribute("value");
@@ -68,7 +57,7 @@ var a11ypi = {
 		}
     	}
     	xhr.open("POST","http://localhost/menu",true);
-    	//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xhr.send(String(url));
     },
     onMenuPopUp: function(e) {
@@ -76,14 +65,6 @@ var a11ypi = {
 	.getService(Components.interfaces.nsIWindowMediator);
 	var recentWindow = wm.getMostRecentWindow("navigator:browser");
 	a11ypi.ajax(content.window.location);
-	//xyz = document.getElementById("menu-button");
-	// newel = document.createElement("menuitem");
-	// newtext = document.createTextNode("Hello world");
-	// newel.appendChild(newtext);
-	// //newel.setAttribute("oncommand","a11ypi.ajax();");
-	// newel.setAttribute("oncommand","a11ypi.onToolbarButtonCommand(event);");
-	// xyz.appendChild(newel);
-	//a11ypi.ajax();
 	return "True";
     },
     createMenu: function(menu_list) {
@@ -91,8 +72,6 @@ var a11ypi = {
 	for(var i in menu_list)
 	    {
 		newel = document.createElement("menuitem");
-		//newtext = document.createTextNode(menu_list[i]);
-		//newel.appendChild(newtext);
 		newel.setAttribute("label",menu_list[i]);
 		newel.setAttribute("value",menu_list[i]);
 		newel.setAttribute("oncommand","a11ypi.getURL(event.target);");
@@ -100,11 +79,12 @@ var a11ypi = {
 	    }
     },
     clearMenu: function() {
-	xyz = document.getElementsByTagName("menuitem");
-	for(var i=0;i<(xyz.childNodes.length + 1);i++)
+	xyz = document.getElementById("menu-button");
+	for(var i=0;i<(xyz.childNodes.length);i++)
 	    {
 		xyz.removeChild(xyz.childNodes[i]);
-	    } 
+	    }
+	xyz.removeChild(xyz.childNodes[0]);                   //A dirty hack for making the drop down work.
     },
 };
 window.addEventListener("load", function () { a11ypi.onLoad(); }, false);
