@@ -5,7 +5,7 @@
 }
 #a11ypi-toolbar-button
 {
-  list-style-image: url("chrome://a11ypi/skin/icon.png");
+  list-style-image: url("chrome://a11ypi/skin/a1icon");
   -moz-image-region: rect(0px 24px 24px 0px);
 }
 #a11ypi-toolbar-button:hover
