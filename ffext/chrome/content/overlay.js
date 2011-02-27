@@ -37,7 +37,7 @@ var a11ypi = {
 	var recentWindow = wm.getMostRecentWindow("navigator:browser");
 	recentWindow ? recentWindow.content.document.location : null;
 	var url = content.window.location;
-	content.window.location = "http://localhost/test?url="+url+"&lang="+e.getAttribute("value");
+	content.window.location = "http://muse-amuse.in/test?url="+url+"&lang="+e.getAttribute("value");
 	content.window.reload()
     },
      ajax: function(url) {
@@ -56,7 +56,7 @@ var a11ypi = {
 			}
 		}
     	}
-    	xhr.open("POST","http://localhost/menu",true);
+    	xhr.open("POST","http://muse-amuse.in/menu",true);
     	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xhr.send(String(url));
     },
