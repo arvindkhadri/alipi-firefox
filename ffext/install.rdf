@@ -4,9 +4,9 @@
     <em:id>arvind@servelots.com</em:id>
     <em:type>2</em:type>
     <em:name>a11ypi</em:name>
-    <em:version>0.1</em:version>
-    <em:creator>arvind</em:creator>
-    <em:contributor></em:contributor>
+    <em:version>1.0</em:version>
+    <em:creator>Arvind</em:creator>
+    <em:contributor>Shantanu</em:contributor>
     <em:optionsURL>chrome://a11ypi/content/options.xul</em:optionsURL>
     <em:targetApplication>
       <Description>
