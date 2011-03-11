@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://a11ypi/skin/overlay.css" type="text/css" ?>
+<!DOCTYPE page SYSTEM "chrome://a11ypi/locale/overlay.dtd">
+<page id="a11ypi-sidebar" title="&a11ypiSidebar.title;" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" >
+  <script src="overlay.js"/>
+  <vbox flex ="1">
+    <label control="a11ypi-txt" value="Enter stuff"/>
+    <textbox id="a11ypi-txt" value="Fill me up" multiline="True" cols="25" onchange="a11ypi.onSidebarinput(event.target);" >
+    </textbox>
+    <menulist label="Select one id" id="replacement_id">
+      <menupopup id="replacement_pop" onpopupshowing="a11ypi.replacement();" onpopuphiding="a11ypi.clearReplacement();">
+	<!-- <menuitem label="Car"/> -->
+	<!-- <menuitem label="Taxi"/> -->
+	<!-- <menuitem label="Bus" selected="true"/> -->
+	<!-- <menuitem label="Train"/> -->
+      </menupopup>
+    </menulist>
+  </vbox>
+</page>

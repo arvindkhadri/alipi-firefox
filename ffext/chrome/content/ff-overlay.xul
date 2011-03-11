@@ -8,11 +8,51 @@
   <stringbundleset id="stringbundleset">
     <stringbundle id="a11ypi-strings" src="chrome://a11ypi/locale/overlay.properties"/>
   </stringbundleset>
-  <toolbarpalette id="BrowserToolbarPalette">
-    <toolbarbutton id="a11ypi-toolbar-button" class="toolbarbutton-1"
-		   label="&a11ypiToolbarButton.label;" tooltiptext="&a11ypiToolbarButton.tooltip;" type="menu">
-      <menupopup id="menu-button" onpopupshowing="a11ypi.onMenuPopUp(event);" onpopuphiding="a11ypi.clearMenu();">
-      </menupopup>
-    </toolbarbutton>
-  </toolbarpalette> 
+    <toolbox id="navigator-toolbox">
+    <toolbar id="a11ypi-toolbar-button" context="clipmenu" label="&a11ypiToolbarButton.label;">
+      <toolbarbutton  class="toolbarbutton-1" label="&a11ypiToolbarButton.label;" tooltiptext="&a11ypiToolbarButton.tooltip;" type="menu" insertbefore="PersonalToolbar">
+	<menupopup id="menu-button" onpopupshowing="a11ypi.onMenuPopUp(event);" onpopuphiding="a11ypi.clearMenu();">
+	</menupopup>
+      </toolbarbutton>
+    </toolbar>
+  </toolbox>
+  <popupset>
+    <popup id="clipmenu">
+      <menuitem label="Cut"/>
+      <menuitem label="Copy"/>
+      <menuitem label="Paste"/>
+    </popup>
+  </popupset>
+
+  <menupopup id="viewSidebarMenu">
+    <menuitem key="key_opena11ypiSidebar" observes="viewa11ypiSidebar"  />
+  </menupopup>
+  
+  <keyset id="mainKeyset">
+    <key id="key_opena11ypiSidebar" command="viewa11ypiSidebar"
+	 key="&a11ypiSidebar.commandkey;" 
+         modifiers="&a11ypiSidebar.modifierskey;" />
+  </keyset>
+  <broadcasterset id="mainBroadcasterSet"> 
+    <broadcaster id="viewa11ypiSidebar" 
+                 label="&a11ypiSidebar.label;"
+                 autoCheck="false"
+                 type="checkbox"
+                 group="sidebar"
+                 sidebartitle="&a11ypiSidebar.title;" 
+		 sidebarurl="chrome://a11ypi/content/sidebar.xul"
+		 oncommand="toggleSidebar('viewa11ypiSidebar');">
+    </broadcaster>
+  </broadcasterset>
 </overlay>
+
+
+<!-- <toolbarpalette id="BrowserToolbarPalette"> -->
+  <!--   <toolbarbutton id="a11ypi-toolbar-button" class="toolbarbutton-1" -->
+  <!-- 		   label="&a11ypiToolbarButton.label;" tooltiptext="&a11ypiToolbarButton.tooltip;" type="menu"> -->
+  <!--     <menupopup id="menu-button" onpopupshowing="a11ypi.onMenuPopUp(event);" onpopuphiding="a11ypi.clearMenu();"> -->
+  <!--     </menupopup> -->
+  <!--   </toolbarbutton> -->
+  <!-- </toolbarpalette>  -->
+
+<!-- /sidebarurl="chrome://emptysidebar/content/emptysidebar.xul" -->

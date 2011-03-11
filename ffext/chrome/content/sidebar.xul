@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://a11ypi/skin/overlay.css" type="text/css" ?>
+<!DOCTYPE page SYSTEM "chrome://a11ypi/locale/overlay.dtd">
+<page id="a11ypi-sidebar" title="&a11ypiSidebar.title;" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" >
+  <script src="overlay.js"/>
+  <vbox flex ="1" style="overflow-y:scroll;">
+    <menulist label="Select one id" id="replacement_id">
+      <menupopup id="replacement_pop" onpopupshowing="a11ypi.replacement();" onpopuphiding="a11ypi.clearReplacement();">
+      </menupopup>
+    </menulist>
+    <label control="a11ypi-txt" value="Text of selected id:"/>
+    <textbox id="a11ypi-txt" 
+	     multiline="true"
+	     wraparound="true"
+	     rows="10"
+	     readonly="true"/>
+    <label control="a11ypi-foruri" value="fouri:"/>
+    <textbox id="a11ypi-foruri" readonly="true"/>
+    <label control="a11ypi-lang-rec" value="Language you want to type in:"/>
+    <textbox id="a11ypi-lang-rec"/>
+    <label control="a11ypi-re-txt" value="Re-narrate text here"/>
+    <textbox id="a11ypi-re-txt" 
+	     multiline="true"  
+	     wraparound="true"
+	     rows="10"/>
+    <button label="Re-narrate"/>    
+  </vbox>
+</page>
