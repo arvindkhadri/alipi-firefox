@@ -18,11 +18,25 @@
     <textbox id="a11ypi-foruri" readonly="true"/>
     <label control="a11ypi-lang-rec" value="Language you want to type in:"/>
     <textbox id="a11ypi-lang-rec"/>
+    <label control="a11ypi-re-title" value="Title of your re-narration:"/>
+    <textbox id="a11ypi-re-title"/>
     <label control="a11ypi-re-txt" value="Re-narrate text here"/>
     <textbox id="a11ypi-re-txt" 
 	     multiline="true"  
 	     wraparound="true"
 	     rows="10"/>
-    <button label="Re-narrate"/>    
+    <menulist id="blog-list" label="Select a place to blog">
+      <menupopup id="blog">
+<!--	<menuitem label="Janastu" value="Janastu"/> -->
+	<menuitem label="Blogger" value="Blogger"/>
+      </menupopup>
+    </menulist>
+    <label control="a11ypi-blog-link" value="The link of your blog, where you want this to be posted:"/>
+    <textbox id="a11ypi-blog-link"/>
+    <label control="Username" value="Username:"/>
+    <textbox id="Username"/>
+    <label control="Password" value="Password:"/>
+    <textbox id="Password" type="password"/>      
+    <button label="Re-narrate" id="re-narrate-button" oncommand="a11ypi.postRenarration();"/>    
   </vbox>
 </page>

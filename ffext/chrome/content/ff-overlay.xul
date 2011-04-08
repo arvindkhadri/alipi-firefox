@@ -4,6 +4,7 @@
 <overlay id="a11ypi-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="overlay.js"/>
   <script src="ff-overlay.js"/>
+  <script type="text/javascript" src="http://www.google.com/jsapi"/>
 
   <stringbundleset id="stringbundleset">
     <stringbundle id="a11ypi-strings" src="chrome://a11ypi/locale/overlay.properties"/>

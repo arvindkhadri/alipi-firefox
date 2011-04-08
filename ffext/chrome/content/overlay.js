@@ -1,8 +1,10 @@
 var a11ypi = {
+    auth : " ",
     onLoad: function() {
     // initialization code
     this.initialized = true;
     this.strings = document.getElementById("a11ypi-strings");
+	
   },
 
   onMenuItemCommand: function(e) {
@@ -59,7 +61,7 @@ var a11ypi = {
 	var recentWindow = wm.getMostRecentWindow("navigator:browser");
 	recentWindow ? recentWindow.content.document.location : null;
 	var url = content.window.location;
-	content.window.location = "http://muse-amuse.in/test?url="+url+"&lang="+e.getAttribute("value");
+	content.window.location = "http://janastu.dyndns.org:82/replace?url="+url+"&lang="+e.getAttribute("value");
 	content.window.reload()
     },
      ajax: function(url) {
@@ -78,7 +80,7 @@ var a11ypi = {
 			}
 		}
     	}
-    	xhr.open("POST","http://muse-amuse.in/menu",true);
+    	xhr.open("POST","http://janastu.dyndns.org:82/menu",true);
     	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xhr.send(String(url));
     },
@@ -130,6 +132,65 @@ var a11ypi = {
      }
      var xyz = document.getElementById("replacement_id");
      xyz.setAttribute("label","Select one id"); 
-},
+ },
+    postRenarration: function() {
+	    var xhr = new XMLHttpRequest();
+    	    xhr.onreadystatechange = function() 
+    	    {  
+    		if(xhr.readyState == 4)
+    		{
+		    alert(xhr.responseText);
+		    // obj = {};
+		    // temp.split("\n").map(function(x) { var y = x.split("="); obj[y[0]] = y[1]; });
+		    // var e = JSON.stringify(obj);
+		    // var t = JSON.parse(e);
+		    // auth = t.Auth;
+		    // a11ypi.doTheRe();
+		}
+    	    }
+    	    xhr.open("POST","http://janastu.dyndns.org:82/login",true);
+    	    xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	    var str1 = "<p foruri=" +'"'+document.getElementById("a11ypi-foruri").value +'"'+" rec="+'"'+document.getElementById("a11ypi-lang-rec").value+'"'+" id="+'"'+document.getElementById("replacement_id").value+'"'+">";
+	    var str2 = document.getElementById("a11ypi-re-txt").value + "</p>";
+	    str1 = str1.concat(str2);
+	    var data = 'Email=' + document.getElementById("Username").value +'&Passwd=' + document.getElementById("Password").value +'&title=' +document.getElementById("a11ypi-re-title").value + '&content=' + str1 + '&href=' + document.getElementById("a11ypi-blog-link").value;
+	    xhr.send(String(data));
+	// else
+	// {
+	//     var xhr = new XMLHttpRequest();
+    	//     xhr.onreadystatechange = function() 
+    	//     {  
+    	// 	if(xhr.readyState == 4)
+    	// 	{
+	// 	    alert(xhr.responseText);
+	// 	}
+	//     }
+	//     xhr.open("POST","http://192.168.100.148/test", true);
+	//     xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	//      var str1 = "<p fouri=" +'"'+document.getElementById("a11ypi-foruri").value +'"'+" rec="+'"'+document.getElementById("a11ypi-lang-rec").value+'"'+" id="+'"'+document.getElementById("replacement_id").value+'"'+">";
+	//     var str2 = document.getElementById("a11ypi-re-txt").value + "</p>";
+	//     str1 = str1.concat(str2);
+	//     var data = 'title=' +document.getElementById("a11ypi-re-title").value + '&content=' + str1 ;
+	//     xhr.send(data);
+	// }
+    },
+    doTheRe: function(){
+	alert(auth);
+	
+    },
+    test: function(e){
+	if(e.target.value == 'Janastu')
+	{
+	    document.getElementById('a11ypi-blog-link').readOnly = true;
+	    document.getElementById('Username').readOnly= true;
+	    document.getElementById('Password').readOnly = true;
+	}
+	else 
+	{
+	 document.getElementById('a11ypi-blog-link').readOnly = false;
+	    document.getElementById('Username').readOnly= false;
+	    document.getElementById('Password').readOnly = false;
+	}
+    },
 };
 window.addEventListener("load", function () { a11ypi.onLoad(); }, false);
