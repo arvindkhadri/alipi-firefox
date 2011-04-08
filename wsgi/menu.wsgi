@@ -4,8 +4,14 @@ def application(environ, start_response):
     response_headers = [('Content-type', 'text/plain')]
     start_response(status, response_headers)
     received = environ['wsgi.input'].read(int(environ['CONTENT_LENGTH']))
-    myJSONObject = {'http://localhost/a11y.html': ['lang.hi' ,'lang.kn']}
-    #return [received]
+    f = open('/var/www/wsgi/a11ypi_dict.json','r')
+    temp = f.read()
+    f.close()
+    temp_json = json.loads(temp, object_hook=dict)
+    myJSONObject = {}
+    for i in temp_json.keys():
+        myJSONObject[i] = temp_json[i].keys()
+    #myJSONObject = {'http://a11y.in/a11ypi/idea/firesafety.html': ['lang.hi' ,'lang.kn']}
     if myJSONObject.has_key(received):
         return [json.dumps(myJSONObject[received])]
     else:
