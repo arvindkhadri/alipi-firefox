@@ -4,26 +4,20 @@
 <overlay id="a11ypi-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="overlay.js"/>
   <script src="ff-overlay.js"/>
-  <script type="text/javascript" src="http://www.google.com/jsapi"/>
-
+ 
   <stringbundleset id="stringbundleset">
     <stringbundle id="a11ypi-strings" src="chrome://a11ypi/locale/overlay.properties"/>
   </stringbundleset>
     <toolbox id="navigator-toolbox">
-    <toolbar id="a11ypi-toolbar-button" context="clipmenu" label="&a11ypiToolbarButton.label;">
-      <toolbarbutton  class="toolbarbutton-1" label="&a11ypiToolbarButton.label;" tooltiptext="&a11ypiToolbarButton.tooltip;" type="menu" insertbefore="PersonalToolbar">
+    <toolbar  label="&a11ypiToolbarButton.label;">
+      <toolbarbutton id="a11ypi-toolbar-button" label="&a11ypiToolbarButton.label;" tooltiptext="&a11ypiToolbarButton.tooltip;" type="menu" insertbefore="PersonalToolbar">
 	<menupopup id="menu-button" onpopupshowing="a11ypi.onMenuPopUp(event);" onpopuphiding="a11ypi.clearMenu();">
 	</menupopup>
       </toolbarbutton>
+      <toolbarbutton  label="Alipi authoring tool" oncommand="toggleSidebar('viewa11ypiSidebar');">
+      </toolbarbutton>
     </toolbar>
   </toolbox>
-  <popupset>
-    <popup id="clipmenu">
-      <menuitem label="Cut"/>
-      <menuitem label="Copy"/>
-      <menuitem label="Paste"/>
-    </popup>
-  </popupset>
 
   <menupopup id="viewSidebarMenu">
     <menuitem key="key_opena11ypiSidebar" observes="viewa11ypiSidebar"  />
