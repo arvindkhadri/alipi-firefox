@@ -4,7 +4,7 @@ def application(environ, start_response):
     response_headers = [('Content-type', 'text/plain')]
     start_response(status, response_headers)
     received = environ['wsgi.input'].read(int(environ['CONTENT_LENGTH']))
-    f = open('/var/www/wsgi/a11ypi_dict.json','r')
+    f = open('/var/www/blog/wsgi/a11ypi_dict.json','r')
     temp = f.read()
     f.close()
     temp_json = json.loads(temp, object_hook=dict)

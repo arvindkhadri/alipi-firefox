@@ -12,14 +12,30 @@ var a11ypi = {
       ren.value = content.document.getElementById(e.target.value).textContent;
       var foruri = document.getElementById("a11ypi-foruri");
       foruri.value = content.window.location + ':' + e.target.value;
+      if(document.getElementById("a11ypi-re-txt").value == '')
+      {
+	  document.getElementById("a11ypi-re-txt").value = "<p foruri=" +'"'+ document.getElementById("a11ypi-foruri").value +'"'+" rec="+'"'+document.getElementById("a11ypi-lang-rec").value+'" id="txt_'+document.getElementById('replacement_id').value + (Math.floor( Math.random()*1000)*Math.floor( Math.random()*10000)) +'"></p>';
+      }
+      else
+	 document.getElementById("a11ypi-re-txt").value += "<p foruri=" +'"'+ document.getElementById("a11ypi-foruri").value +'"'+" rec="+'"'+document.getElementById("a11ypi-lang-rec").value+'" id="txt_'+document.getElementById('replacement_id').value + (Math.floor( Math.random()*1000)*Math.floor( Math.random()*10000)) +'"></p>';
     //   var promptService = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
     //                               .getService(Components.interfaces.nsIPromptService);
     // promptService.alert(window, this.strings.getString("helloMessageTitle"),
     //                             this.strings.getString("helloMessage"));
   },
 
-  onToolbarButtonCommand: function(e) {
-	alert(e.getAttribute("value"));
+    onToolbarButtonCommand: function(e) {
+      var ren = document.getElementById("a11ypi-img");
+      ren.src = content.document.getElementById(e.target.value).src;
+      if (document.getElementById("a11ypi-lang-rec").value == '' || document.getElementById("a11ypi-lang-rec").value == '')
+      {
+	  alert('Please fill in the source of image and/or the language of the recommendation');
+      }
+      else
+      {
+	  var foruri = document.getElementById("a11ypi-img-foruri");
+	  foruri.value = '<img src=' + '"' + document.getElementById("a11ypi-img-replace").value + '" foruri="' +content.window.location + ':' + e.target.value +'" rec="'+ document.getElementById("a11ypi-lang-rec").value + '" id="img_' + e.target.value+ (Math.floor( Math.random()*1000)*Math.floor( Math.random()*10000))  + '"/>';
+      }	
     },
     //The following is a important code snippet, DO NOT DELETE.
     // onClick: function() {
@@ -61,7 +77,7 @@ var a11ypi = {
 	var recentWindow = wm.getMostRecentWindow("navigator:browser");
 	recentWindow ? recentWindow.content.document.location : null;
 	var url = content.window.location;
-	content.window.location = "http://janastu.dyndns.org:82/replace?url="+url+"&lang="+e.getAttribute("value");
+	content.window.location = "http://192.168.100.56:82/replace?url="+url+"&lang="+e.getAttribute("value");
 	content.window.reload()
     },
      ajax: function(url) {
@@ -80,7 +96,7 @@ var a11ypi = {
 			}
 		}
     	}
-    	xhr.open("POST","http://janastu.dyndns.org:82/menu",true);
+    	xhr.open("POST","http://192.168.100.56:82/menu",true);
     	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xhr.send(String(url));
     },
@@ -117,7 +133,7 @@ var a11ypi = {
 	var divs = content.document.getElementsByTagName("*");
 	for(var i=0;i<divs.length;i++)
 	{
-	    if(divs[i].getAttribute("id")!=null)
+	    if(divs[i].getAttribute("id")!=null && divs[i].tagName != 'IMG')
 	    {
 		xyz.appendItem(divs[i].getAttribute("id"),divs[i].getAttribute("id"));
 	     }
@@ -148,12 +164,12 @@ var a11ypi = {
 		    // a11ypi.doTheRe();
 		}
     	    }
-    	    xhr.open("POST","http://janastu.dyndns.org:82/login",true);
+    	    xhr.open("POST","http://192.168.100.56:82/login",true);
     	    xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-	    var str1 = "<p foruri=" +'"'+document.getElementById("a11ypi-foruri").value +'"'+" rec="+'"'+document.getElementById("a11ypi-lang-rec").value+'"'+" id="+'"'+document.getElementById("replacement_id").value+'"'+">";
-	    var str2 = document.getElementById("a11ypi-re-txt").value + "</p>";
-	    str1 = str1.concat(str2);
-	    var data = 'Email=' + document.getElementById("Username").value +'&Passwd=' + document.getElementById("Password").value +'&title=' +document.getElementById("a11ypi-re-title").value + '&content=' + str1 + '&href=' + document.getElementById("a11ypi-blog-link").value;
+//	var str1 = "<p foruri=" +'"'+ document.getElementById("a11ypi-foruri").value +'"'+" rec="+'"'+document.getElementById("a11ypi-lang-rec").value+'" id="txt_'+document.getElementById('replacement_id').value + (Math.floor( Math.random()*1000)*Math.floor( Math.random()*10000)) +'">'; //
+//	    var str2 = document.getElementById("a11ypi-re-txt").value + "</p>";
+//	    str1 = str1.concat(str2);
+	    var data = 'Email=' + document.getElementById("Username").value +'&Passwd=' + document.getElementById("Password").value +'&title=' +document.getElementById("a11ypi-re-title").value + '&content=' + document.getElementById("a11ypi-re-txt").value + '&href=' + document.getElementById("a11ypi-blog-link").value;
 	    xhr.send(String(data));
 	// else
 	// {
@@ -174,10 +190,6 @@ var a11ypi = {
 	//     xhr.send(data);
 	// }
     },
-    doTheRe: function(){
-	alert(auth);
-	
-    },
     test: function(e){
 	if(e.target.value == 'Janastu')
 	{
@@ -192,5 +204,29 @@ var a11ypi = {
 	    document.getElementById('Password').readOnly = false;
 	}
     },
+    imgMenu: function()
+    {
+	var xyz = document.getElementById("img_id");
+	var xy = document.getElementById("img_ids");
+	xy.addEventListener("command", a11ypi.onToolbarButtonCommand ,false);  
+	var divs = content.document.getElementsByTagName("*");
+	for(var i=0;i<divs.length;i++)
+	{
+	    if(divs[i].getAttribute("id")!=null && divs[i].tagName == 'IMG')
+	    {
+		xyz.appendItem(divs[i].getAttribute("id"),divs[i].getAttribute("id"));
+	     }
+	}
+    },
+ clearImgMenu: function() {
+     var xy = document.getElementById("img_ids");
+     xy.removeEventListener("command", a11ypi.onToolbarButtonCommand,false);
+     while(null!= xy.firstChild)
+     {
+	 xy.removeChild(xy.firstChild);
+     }
+     var xyz = document.getElementById("img_id");
+     xyz.setAttribute("label","Select one id"); 
+ },
 };
 window.addEventListener("load", function () { a11ypi.onLoad(); }, false);
