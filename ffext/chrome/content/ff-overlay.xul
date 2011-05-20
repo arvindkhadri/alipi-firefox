@@ -16,6 +16,12 @@
       </toolbarbutton>
       <toolbarbutton  label="Alipi authoring tool" oncommand="toggleSidebar('viewa11ypiSidebar');">
       </toolbarbutton>
+      <toolbarbutton label="Choose server" type="menu">
+      <menupopup id="server-button">
+	<menuitem label="Janastu" id="server-1" type="radio" checked="true" value="http://janastu.dyndns.org:82"/>
+	<menuitem label="Zabbix" id="server-2" type="radio" vaule="http://192.168.100.56:82"/>
+      </menupopup>
+      </toolbarbutton>
     </toolbar>
   </toolbox>
 

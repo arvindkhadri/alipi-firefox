@@ -17,13 +17,15 @@
     <label control="a11ypi-foruri" value="text-foruri:"/>
     <textbox id="a11ypi-foruri" readonly="true"/>
     <menulist label="Select one image" id="img_id">
-      <menupopup id="img_ids" onpopupshowing="a11ypi.imgMenu();" onpopuphiding="a11ypi.clearImgMenu();">
+      <menupopup id="img_ids" onpopupshowing="a11ypi.imgMenu();" onpopuphidden="a11ypi.clearImgMenu();" onpopupshown="a11ypi.imgShow();">
       </menupopup>
     </menulist>
     <label control="a11ypi-img" value="Selected image:"/>
     <image id="a11ypi-img"/>
     <label control="a11ypi-img-replace" value="URL of the image, use a image hosting service or dropbox:"/>
-    <textbox id="a11ypi-img-replace" onchange="a11ypi.updateimg()"/>
+    <textbox id="a11ypi-img-replace"/>
+    <label control="a11ypi-audio" value="Select an audio file:"/>
+    <button label="Browse" oncommand="a11ypi.filePick();"/>
     <label control="a11ypi-img-foruri" value="image-foruri:"/>
     <textbox id="a11ypi-img-foruri" readonly="true"/>
     <label control="a11ypi-lang-rec" value="Language you want to type in:"/>

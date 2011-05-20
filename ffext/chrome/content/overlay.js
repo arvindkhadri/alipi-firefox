@@ -77,7 +77,14 @@ var a11ypi = {
 	var recentWindow = wm.getMostRecentWindow("navigator:browser");
 	recentWindow ? recentWindow.content.document.location : null;
 	var url = content.window.location;
-	content.window.location = "http://192.168.100.56:82/replace?url="+url+"&lang="+e.getAttribute("value");
+	if (document.getElementById('server-2').selected =='true')
+	{
+	    content.window.location = "http://192.168.100.56:82/replace?url="+url+"&lang="+e.getAttribute("value");
+	}
+	else
+	{
+	    content.window.location = "http://janastu.dyndns.org:82/replace?url="+url+"&lang="+e.getAttribute("value");
+	}
 	content.window.reload()
     },
      ajax: function(url) {
@@ -96,7 +103,14 @@ var a11ypi = {
 			}
 		}
     	}
-    	xhr.open("POST","http://192.168.100.56:82/menu",true);
+    	 if (document.getElementById('server-2').selected =='true')
+	 {
+	     xhr.open("POST","http://192.168.100.56:82/menu",true);
+	 }
+	 else
+	 {
+	 xhr.open("POST","http://janastu.dyndns.org:82/menu",true);
+	 }
     	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xhr.send(String(url));
     },
@@ -164,7 +178,14 @@ var a11ypi = {
 		    // a11ypi.doTheRe();
 		}
     	    }
-    	    xhr.open("POST","http://192.168.100.56:82/login",true);
+	if (document.getElementById('server-2').selected =='true')
+	 {
+	     xhr.open("POST","http://192.168.100.56:82/menu",true);
+	 }
+	 else
+	{
+    	    xhr.open("POST","http://janastu.dyndns.org:82/login",true);
+	}
     	    xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 //	var str1 = "<p foruri=" +'"'+ document.getElementById("a11ypi-foruri").value +'"'+" rec="+'"'+document.getElementById("a11ypi-lang-rec").value+'" id="txt_'+document.getElementById('replacement_id').value + (Math.floor( Math.random()*1000)*Math.floor( Math.random()*10000)) +'">'; //
 //	    var str2 = document.getElementById("a11ypi-re-txt").value + "</p>";
@@ -226,7 +247,28 @@ var a11ypi = {
 	 xy.removeChild(xy.firstChild);
      }
      var xyz = document.getElementById("img_id");
-     xyz.setAttribute("label","Select one id"); 
+     xyz.setAttribute("label","Select one image id"); 
  },
+    imgShow:function()
+    {
+	document.getElementById('img_id').value = document.getElementById('img_id').selectedItem;
+    },
+    filePick:function()
+    {
+    	// var window = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+        //              .getService(Components.interfaces.nsIWindowMediator);
+    	try{
+	var nsIFilePicker = Components.interfaces.nsIFilePicker;
+	var fp = Components.classes["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
+    	fp.init(window, "Select a File", nsIFilePicker.modeOpen);
+    	fp.appendFilter("Audio Files","*.wav; *.mp3");
+	    fp.show();
+    	alert("hello world");
+	}
+	catch(e)
+	{
+	    alert(e.message);
+	}
+    },
 };
 window.addEventListener("load", function () { a11ypi.onLoad(); }, false);
