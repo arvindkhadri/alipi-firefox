@@ -20,3 +20,7 @@
 {
   -moz-image-region: rect(0px 20px 24px 0px);
 }
+#a11ypi-browse,#re-narrate-button
+{
+margin-right: 300px;
+}

@@ -257,18 +257,39 @@ var a11ypi = {
     {
     	// var window = Components.classes["@mozilla.org/appshell/window-mediator;1"]
         //              .getService(Components.interfaces.nsIWindowMediator);
-    	try{
 	var nsIFilePicker = Components.interfaces.nsIFilePicker;
 	var fp = Components.classes["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
     	fp.init(window, "Select a File", nsIFilePicker.modeOpen);
-    	fp.appendFilter("Audio Files","*.wav; *.mp3");
-	    fp.show();
-    	alert("hello world");
-	}
-	catch(e)
+    	fp.appendFilter("Audio Files","*.wav; *.mp3; *.ogg");
+	var rv = fp.show();
+	if(rv == nsIFilePicker.returnOK)
 	{
-	    alert(e.message);
+
+	    document.getElementById('a11ypi-file').value = fp.file.path;
+	    a11ypi.upload(fp);
 	}
     },
+    upload: function(fp)
+    {
+	var stream = Components.classes["@mozilla.org/network/file-input-stream;1"]
+                       .createInstance(Components.interfaces.nsIFileInputStream);
+	stream.init(fp.file, 0x04 | 0x08, 0644, 0x04); // file is an nsIFile instance   
+
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+		alert(xhr.responseText);
+            }
+	};
+	//var contentType = "multipart/form-data";
+	var mimeService = Components.classes["@mozilla.org/mime;1"]
+          .getService(Components.interfaces.nsIMIMEService);
+	mimeType = mimeService.getTypeFromFile(fp.file);
+	xhr.open("POST", "http://localhost/upload", true);
+	xhr.setRequestHeader("Content-Type",mimeType);
+	//xhr.setRequestHeader("Content-Length", fp.file.fileSize);
+	//var data = 'fname='+fname+'&stream='+stream;
+	xhr.send(stream);
+},
 };
 window.addEventListener("load", function () { a11ypi.onLoad(); }, false);
