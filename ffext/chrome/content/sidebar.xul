@@ -4,6 +4,12 @@
 <page id="a11ypi-sidebar" title="&a11ypiSidebar.title;" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="overlay.js"/>
   <vbox flex="1" style="overflow-y:scroll;" id="a11ypi-vbox">
+    <menulist label="Choose a server">
+      	<menupopup type="menu">
+	  <menuitem id="server-1" type="radio" checked="true" value="http://janastu.dyndns.org:82" label="Janastu"/>
+	  <menuitem label="Zabbix" id="server-2" type="radio" vaule="http://192.168.100.56:82"/>
+	</menupopup>
+    </menulist>
     <menulist label="Select one text block" id="replacement_id">
       <menupopup id="replacement_pop" onpopupshowing="a11ypi.replacement();" onpopuphiding="a11ypi.clearReplacement();">
       </menupopup>
@@ -26,18 +32,20 @@
     </menulist>
     <label control="a11ypi-img" value="Selected image:"/>
     <image id="a11ypi-img"/>
-    <label control="a11ypi-img-replace" value="URL of the image, use a image hosting service or dropbox:"/>
-    <hbox> 
-      <textbox id="a11ypi-img-replace" flex="1" onchange="a11ypi.updateimg();"/>
-    </hbox>
-    <label control="a11ypi-audio" value="Select an audio file:"/>
+    <label control="a11ypi-audio" value="Select a file:"/>
     <hbox>
       <textbox id="a11ypi-file" readonly="true" flex="1"/>
     </hbox>
     <button id="a11ypi-browse" label="Browse" oncommand="a11ypi.filePick();"/>
-    <label control="a11ypi-img-foruri" value="image-foruri:"/>
-    <hbox>
+    <label control="a11ypi-img-replace" value="URL of the image, use the browse button:"/>
+    <hbox> 
+      <textbox id="a11ypi-img-replace" flex="1" onchange="a11ypi.onImgUrichange();"/>
       <textbox id="a11ypi-img-foruri" readonly="true" flex="1"/>
+    </hbox>
+    <label value="Please paste the url returned, if you had uploaded audio:"/>
+    <hbox>
+      <textbox id="a11ypi-audio-url" onchange="a11ypi.updateaud();" flex="1"/>
+      <textbox id="a11ypi-audio-foruri" readonly="true" flex="1"/>
     </hbox>
     <label control="a11ypi-lang-rec" value="Language you want to type in:"/>
     <hbox>
