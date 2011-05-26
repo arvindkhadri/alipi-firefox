@@ -157,7 +157,10 @@ var a11ypi = {
 	 xy.removeChild(xy.firstChild);
      }
      var xyz = document.getElementById("replacement_id");
-     xyz.setAttribute("label","Select one id"); 
+     if(document.getElementById('replacement_id').value == '')
+	 xyz.setAttribute("label","Select one text block");
+     else
+	 xyz.setAttribute("label",document.getElementById("replacement_id").value); 
  },
     postRenarration: function() {
 	    var xhr = new XMLHttpRequest();
@@ -216,12 +219,11 @@ var a11ypi = {
 	 xy.removeChild(xy.firstChild);
      }
      var xyz = document.getElementById("img_id");
-     xyz.setAttribute("label","Select one image id"); 
+     if(document.getElementById('img_id').value == '')
+	 xyz.setAttribute("label", "Select one image");
+     else
+	 xyz.setAttribute("label",document.getElementById('img_id').value); 
  },
-    imgShow:function()
-    {
-	document.getElementById('img_id').value = document.getElementById('img_id').selectedItem;
-    },
     filePick:function()
     {
     	// var window = Components.classes["@mozilla.org/appshell/window-mediator;1"]
