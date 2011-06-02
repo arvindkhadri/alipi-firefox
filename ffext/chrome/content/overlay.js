@@ -11,13 +11,15 @@ var a11ypi = {
       var ren = document.getElementById("a11ypi-txt");
       ren.value = content.document.getElementById(e.target.value).textContent;
       var foruri = document.getElementById("a11ypi-foruri");
-      foruri.value = content.window.location + ':' + e.target.value;
-      if(document.getElementById("a11ypi-re-txt").value == '')
+      if(document.getElementById("a11ypi-lang-rec").value == '')
       {
-	  document.getElementById("a11ypi-re-txt").value = "<p foruri=" +'"'+ document.getElementById("a11ypi-foruri").value +'"'+" rec="+'"'+document.getElementById("a11ypi-lang-rec").value+'" id="txt_'+document.getElementById('replacement_id').value + (Math.floor( Math.random()*1000)*Math.floor( Math.random()*10000)) +'"></p>';
+	  alert('Please fill in the language you want to type in first');
       }
       else
-	 document.getElementById("a11ypi-re-txt").value += "<p foruri=" +'"'+ document.getElementById("a11ypi-foruri").value +'"'+" rec="+'"'+document.getElementById("a11ypi-lang-rec").value+'" id="txt_'+document.getElementById('replacement_id').value + (Math.floor( Math.random()*1000)*Math.floor( Math.random()*10000)) +'"></p>';
+      {
+	   foruri.value = content.window.location + ':' + e.target.value;
+	  document.getElementById("a11ypi-re-txt").value += "<p foruri=" +'"'+ document.getElementById("a11ypi-foruri").value +'"'+" rec="+'"'+document.getElementById("a11ypi-lang-rec").value+'" id="txt_'+document.getElementById('replacement_id').value + (Math.floor( Math.random()*1000)*Math.floor( Math.random()*10000)) +'"></p>';
+      }
     //   var promptService = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
     //                               .getService(Components.interfaces.nsIPromptService);
     // promptService.alert(window, this.strings.getString("helloMessageTitle"),
@@ -87,8 +89,8 @@ var a11ypi = {
 	var recentWindow = wm.getMostRecentWindow("navigator:browser");
 	recentWindow ? recentWindow.content.document.location : null;
 	var url = content.window.location;
-	content.window.location = "http://janastu.dyndns.org:82/replace?url="+url+"&lang="+e.getAttribute("value");
-	content.window.reload()
+	content.window.location = "http://devel.virtual-labs.ac.in/alipi/replace?url="+url+"&lang="+e.getAttribute("value");
+	content.window.reload();
     },
      ajax: function(url) {
     	var xhr = new XMLHttpRequest();
@@ -106,7 +108,7 @@ var a11ypi = {
 			}
 		}
     	}
-	 xhr.open("POST","http://janastu.dyndns.org:82/menu",true);
+	 xhr.open("POST","http://devel.virtual-labs.ac.in/alipi/menu",true);
     	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xhr.send(String(url));
     },
@@ -178,9 +180,9 @@ var a11ypi = {
 		}
     	    }
 	
-	xhr.open("POST","http://janastu.dyndns.org:82/login",true);
+	xhr.open("POST","http://devel.virtual-labs.ac.in/alipi/login",true);
     	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-	var data = 'Email=' + document.getElementById("Username").value +'&Passwd=' + document.getElementById("Password").value +'&title=' +document.getElementById("a11ypi-re-title").value + '&content=' + document.getElementById("a11ypi-re-txt").value + '&href=' + document.getElementById("a11ypi-blog-link").value;
+	var data = 'Email=' + document.getElementById("Username").value +'&Passwd=' + document.getElementById("Password").value +'&title=' +document.getElementById("a11ypi-re-title").value + '&content=' + document.getElementById("a11ypi-re-txt").value +'<br><p>This post is a re-narration of '+ content.window.location +' in ' +document.getElementById('a11ypi-lang-rec').value+'.</p><br><p>The renarrated page can be seen at http://devel.virtual-labs.ac.in/alipi/replace?url='+content.window.location+'&lang='+document.getElementById('a11ypi-lang-rec').value+' </p>'+ '&href=' + document.getElementById("a11ypi-blog-link").value;
 	xhr.send(String(data));
     },
     test: function(e){
@@ -250,20 +252,26 @@ var a11ypi = {
 	xhr.onreadystatechange = function() {
             if (xhr.readyState === 4) {
 		
-		alert('Please copy paste this URL into the respective place: http://janastu.dyndns.org:82/wsgi/'+xhr.responseText);
+		alert('Please copy paste this URL into the respective place: http://devel.virtual-labs.ac.in/alipi/wsgi/'+xhr.responseText);
             }
 	};
 	//var contentType = "multipart/form-data";
 	var mimeService = Components.classes["@mozilla.org/mime;1"]
           .getService(Components.interfaces.nsIMIMEService);
 	mimeType = mimeService.getTypeFromFile(fp.file);
-	xhr.open("POST", "http://janastu.dyndns.org:82/upload", true);
+	xhr.open("POST", "http://devel.virtual-labs.ac.in/alipi/upload", true);
 	xhr.setRequestHeader("Content-Type",mimeType);
 	xhr.send(stream);
 },
     updateaud:function()
     {
 	document.getElementById('a11ypi-audio-foruri').value = '<audio controls="controls" src=' +'"' + document.getElementById('a11ypi-audio-url').value +'" foruri=' +'"'+ content.window.location + ':' + document.getElementById('replacement_id').value +'" id="aud_' +document.getElementById('replacement_id').value + (Math.floor( Math.random()*1000)*Math.floor( Math.random()*10000)) +'" rec="' + document.getElementById('a11ypi-lang-rec').value + '"></audio>';
-    }
+    },
+    // testalert:function()
+    // {
+    // 	if(document.getElementById('server-2').selected)
+    // 	    alert("Yes");
+    // },
+
 };
 window.addEventListener("load", function () { a11ypi.onLoad(); }, false);

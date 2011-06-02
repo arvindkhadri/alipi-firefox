@@ -27,7 +27,7 @@ def application(environ, start_response):
     for entry in feed.entry:
         if parameter['href'] == entry.GetHtmlLink().href:
             blog_id = entry.GetSelfLink().href.split("/")[-1]
-    blogEntry = CreatePublicPost(blogger_service, blog_id, title=parameter['title'], content=parameter['content'])
+    blogEntry = CreatePublicPost(blogger_service, blog_id, title=parameter['title'], content=parameter['content']+'&lang='+ parameter['lang'])
     time.sleep(10)
     cmd = 'cd /home/arvind/Projects/alipi-crawler/a11ypi;scrapy crawl --spider a11y.in ' + parameter['href']
     commands.getoutput(cmd)

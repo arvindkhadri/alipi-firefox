@@ -9,12 +9,12 @@
       <textbox id="a11ypi-lang-rec" flex="1"/>
     </hbox>
     <!-- <menulist label="Choose a server"> -->
-    <!--   	<menupopup type="menu"> -->
+    <!--   	<menupopup type="menu" oncommand="a11ypi.testalert();"> -->
     <!-- 	  <menuitem id="server-1" type="radio" checked="true" value="http://janastu.dyndns.org:82" label="Janastu"/> -->
     <!-- 	  <menuitem label="Zabbix" id="server-2" type="radio" vaule="http://192.168.100.56:82"/> -->
     <!-- 	</menupopup> -->
     <!-- </menulist> -->
-    <menulist label="Select one text block" id="replacement_id">
+    <menulist label="Select one text block" sizetopopup="always" id="replacement_id">
       <menupopup id="replacement_pop" onpopupshowing="a11ypi.replacement();" onpopuphiding="a11ypi.clearReplacement();">
       </menupopup>
     </menulist>
