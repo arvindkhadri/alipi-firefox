@@ -1,5 +1,6 @@
 var a11ypi = {
     auth : " ",
+    loc:" ",
     onLoad: function() {
     // initialization code
     this.initialized = true;
@@ -17,7 +18,8 @@ var a11ypi = {
       }
       else
       {
-	   foruri.value = content.window.location + ':' + e.target.value;
+	  loc = content.window.location;
+	  foruri.value = content.window.location + ':' + e.target.value;
 	  document.getElementById("a11ypi-re-txt").value += "<p foruri=" +'"'+ document.getElementById("a11ypi-foruri").value +'"'+" rec="+'"'+document.getElementById("a11ypi-lang-rec").value+'" id="txt_'+document.getElementById('replacement_id').value + (Math.floor( Math.random()*1000)*Math.floor( Math.random()*10000)) +'"></p>';
       }
     //   var promptService = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
@@ -46,7 +48,7 @@ var a11ypi = {
 	else
 	{
 	    var foruri = document.getElementById("a11ypi-img-foruri");
-	    foruri.value = '<img src=' + '"' + document.getElementById("a11ypi-img-replace").value + '" foruri="' +content.window.location + ':' + document.getElementById('img_id').value +'" rec="'+ document.getElementById("a11ypi-lang-rec").value + '" id="img_' + document.getElementById('img_id').value+ (Math.floor( Math.random()*1000)*Math.floor( Math.random()*10000))  + '"/></img>';
+	    foruri.value = '<img src=' + '"' + document.getElementById("a11ypi-img-replace").value + '" foruri="' +loc + ':' + document.getElementById('img_id').value +'" rec="'+ document.getElementById("a11ypi-lang-rec").value + '" id="img_' + document.getElementById('img_id').value+ (Math.floor( Math.random()*1000)*Math.floor( Math.random()*10000))  + '"/></img>';
 	}
     },
     //The following is a important code snippet, DO NOT DELETE.
@@ -171,6 +173,7 @@ var a11ypi = {
     		if(xhr.readyState == 4)
     		{
 		    alert(xhr.responseText);
+		    document.getElementById('re-narrate-button').disabled = false; 
 		    // obj = {};
 		    // temp.split("\n").map(function(x) { var y = x.split("="); obj[y[0]] = y[1]; });
 		    // var e = JSON.stringify(obj);
@@ -179,10 +182,14 @@ var a11ypi = {
 		    // a11ypi.doTheRe();
 		}
     	    }
-	
+	document.getElementById('re-narrate-button').disabled = true; 
+	orgurl= '<a href="' + loc + '">page</a>';
+	renlink= '<a href="http://devel.virtual-labs.ac.in/alipi/replace?url='+loc;
+	postannotate= '<blockquote>This post is a re-narration of '+ orgurl +' for ' +document.getElementById('a11ypi-lang-rec').value+'.<br>The renarrated page can be seen ' +  renlink;
+
 	xhr.open("POST","http://devel.virtual-labs.ac.in/alipi/login",true);
     	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-	var data = 'Email=' + document.getElementById("Username").value +'&Passwd=' + document.getElementById("Password").value +'&title=' +document.getElementById("a11ypi-re-title").value + '&content=' + document.getElementById("a11ypi-re-txt").value +'<br><p>This post is a re-narration of '+ content.window.location +' in ' +document.getElementById('a11ypi-lang-rec').value+'.</p><br><p>The renarrated page can be seen at http://devel.virtual-labs.ac.in/alipi/replace?url='+content.window.location+'&lang='+document.getElementById('a11ypi-lang-rec').value+' </p>'+ '&href=' + document.getElementById("a11ypi-blog-link").value;
+	var data = 'Email=' + document.getElementById("Username").value +'&Passwd=' + document.getElementById("Password").value +'&title=' +document.getElementById("a11ypi-re-title").value + '&content=' + document.getElementById("a11ypi-re-txt").value + postannotate + '&href=' + document.getElementById("a11ypi-blog-link").value +'&lang='+document.getElementById('a11ypi-lang-rec').value+'">here</a></blockquote>';
 	xhr.send(String(data));
     },
     test: function(e){
@@ -265,7 +272,7 @@ var a11ypi = {
 },
     updateaud:function()
     {
-	document.getElementById('a11ypi-audio-foruri').value = '<audio controls="controls" src=' +'"' + document.getElementById('a11ypi-audio-url').value +'" foruri=' +'"'+ content.window.location + ':' + document.getElementById('replacement_id').value +'" id="aud_' +document.getElementById('replacement_id').value + (Math.floor( Math.random()*1000)*Math.floor( Math.random()*10000)) +'" rec="' + document.getElementById('a11ypi-lang-rec').value + '"></audio>';
+	document.getElementById('a11ypi-audio-foruri').value = '<audio controls="controls" src=' +'"' + document.getElementById('a11ypi-audio-url').value +'" foruri=' +'"'+ loc + ':' + document.getElementById('replacement_id').value +'" id="aud_' +document.getElementById('replacement_id').value + (Math.floor( Math.random()*1000)*Math.floor( Math.random()*10000)) +'" rec="' + document.getElementById('a11ypi-lang-rec').value + '"></audio>';
     },
     // testalert:function()
     // {
