@@ -3,6 +3,7 @@ from cgi import parse_qs
 from itertools import izip
 import json
 import os
+import commands
 def application(environ, start_response):
     status = '200 OK'
     response_headers = [('Content-type', 'text/html')]
@@ -23,6 +24,12 @@ def application(environ, start_response):
     url = parameter['url']
     url2 =" "
     lang = parameter['lang']
+    try:                                                                                                                              
+        if(os.path.getmtime('/var/www/wsgi/a11ypi_dict.json') > os.path.getmtime('/var/www/wsgi/'+ parameter['url'].split(':')[1].spl\
+it('//')[1] + parameter['lang'])):
+            commands.getoutput('rm /var/www/wsgi/'+ parameter['url'].split(':')[1].split('//')[1] + parameter['lang'])
+    except OSError:
+        pass    
     try:
         #f = open("%s%s" % (os.path.abspath(os.path.dirname(__file__)), parameter['url'] + '.' + parameter['lang'] ,'r'))
 	f = open(os.path.join(os.path.dirname(__file__), parameter['url'].split(':')[1].split('//')[1] + parameter['lang']), 'r')
