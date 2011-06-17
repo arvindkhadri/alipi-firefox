@@ -368,7 +368,6 @@ var a11ypi = {
 			else
 			{
 			    window.open("test_new.html","_blank","height=310,width=500,resizable=yes,toolbar=no,menubar=no,statusbar=yes,fullscreen=true,scrollbars=no,location=no");
-			    
 			    sideBar.document.getElementById('a11ypi-select-id').value = temp.id;
 			    break;
 			}
@@ -377,7 +376,7 @@ var a11ypi = {
 	    }
 	    else
 	    {
-		var st = content.document.getElementById(temp.id);
+		var st = content.document.getElementById(temp.parentNode.id);
 		st.style.borderColor = "red";
 		st.style.borderStyle = "dotted";
 		sideBar.document.getElementById('a11ypi-select-id').value = sel.focusNode.parentNode.id; 
