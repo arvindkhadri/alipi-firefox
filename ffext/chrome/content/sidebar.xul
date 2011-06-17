@@ -18,6 +18,10 @@
       <menupopup id="replacement_pop" onpopupshowing="a11ypi.replacement();" onpopuphiding="a11ypi.clearReplacement();">
       </menupopup>
     </menulist>
+    <label control="a11ypi-select-id" value="Selected id:"/>
+    <hbox>
+      <textbox readonly="true" flex="1" id="a11ypi-select-id"/>
+    </hbox>
     <label control="a11ypi-txt" value="Text of selected id:"/>
     <hbox>
       <textbox id="a11ypi-txt"

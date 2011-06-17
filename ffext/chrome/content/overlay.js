@@ -3,10 +3,9 @@ var a11ypi = {
     loc:" ",
     onLoad: function() {
     // initialization code
-    this.initialized = true;
-    this.strings = document.getElementById("a11ypi-strings");
-	
-  },
+	this.initialized = true;
+	this.strings = document.getElementById("a11ypi-strings");
+    },
 
   onMenuItemCommand: function(e) {
       var ren = document.getElementById("a11ypi-txt");
@@ -67,23 +66,54 @@ var a11ypi = {
     // 		alert(e.name);
     // 	    }
     // }
-    onSidebarinput: function(e){
-	alert(e.value);
-	var sel = content.window.getSelection().getRangeAt(0).cloneContents();
+    showId: function(e){
+	var sel = content.window.getSelection(); //.getRangeAt(0).cloneContents();
+	document.getElementById('a11ypi-txt').value = sel;
+	var temp = sel.focusNode;
+	if(sel.focusNode.parentNode.id == '' || sel.focusNode.parentNode.id == 'undefined')
+	{
+	    while(temp.parentNode.tagName != 'BODY')
+	    {
+		temp = temp.parentNode;
+		if(temp.id){
+		    var st = content.document.getElementById(temp.id);
+		    st.style.borderColor = "red";
+		    st.style.borderStyle = "dotted";
+		    if(confirm("This is the selection you have made for re-narration.  Do you want to expand the selection?"))
+		    {
+			st.style.borderColor = "";
+			st.style.borderStyle = "";
+			continue;
+		    }
+		    else
+		    {
+			document.getElementById('a11ypi-select-id').value = temp.id;
+			break;
+		    }
+		}
+	    }
+	}
+	else
+	{
+	    var st = content.document.getElementById(temp.id);
+	    st.style.borderColor = "red";
+	    st.style.borderStyle = "dotted";
+	    document.getElementById('a11ypi-select-id').value = sel.focusNode.parentNode.id; 
+	}
 	// var ht = content.document.createRange();
 	// ht.selectNode(getElementsByTagName("body"));
 	// var sel = ht.cloneContents();
-	var x = content.document.createElement("test");
-	x.appendChild(sel);
-	alert(x.innerHTML);
-	y = x.getElementsByTagName("*");
-	for (var i=0;i<y.length;i++)
-	{
-	    if(y[i].getAttribute("id")!=null)
-	    {
-		alert(y[i].getAttribute("id"));
-	    }
-	}
+	// var x = content.document.createElement("test");
+	// x.appendChild(sel);
+	// alert(x.innerHTML);
+	// y = x.getElementsByTagName("*");
+	// for (var i=0;i<y.length;i++)
+	// {
+	//     if(y[i].getAttribute("id")!=null)
+	//     {
+	// 	alert(y[i].getAttribute("id"));
+	//     }
+	// }
     },
     getURL: function(e) {
 	var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]     //The service branch which handles the "Window".
@@ -192,20 +222,20 @@ var a11ypi = {
 	var data = 'Email=' + document.getElementById("Username").value +'&Passwd=' + document.getElementById("Password").value +'&title=' +document.getElementById("a11ypi-re-title").value + '&content=' + document.getElementById("a11ypi-re-txt").value + postannotate + '&href=' + document.getElementById("a11ypi-blog-link").value +'&lang='+document.getElementById('a11ypi-lang-rec').value+'">here</a></blockquote>';
 	xhr.send(String(data));
     },
-    test: function(e){
-	if(e.target.value == 'Janastu')
-	{
-	    document.getElementById('a11ypi-blog-link').readOnly = true;
-	    document.getElementById('Username').readOnly= true;
-	    document.getElementById('Password').readOnly = true;
-	}
-	else 
-	{
-	 document.getElementById('a11ypi-blog-link').readOnly = false;
-	    document.getElementById('Username').readOnly= false;
-	    document.getElementById('Password').readOnly = false;
-	}
-    },
+    // test: function(e){
+    // 	if(e.target.value == 'Janastu')
+    // 	{
+    // 	    document.getElementById('a11ypi-blog-link').readOnly = true;
+    // 	    document.getElementById('Username').readOnly= true;
+    // 	    document.getElementById('Password').readOnly = true;
+    // 	}
+    // 	else 
+    // 	{
+    // 	 document.getElementById('a11ypi-blog-link').readOnly = false;
+    // 	    document.getElementById('Username').readOnly= false;
+    // 	    document.getElementById('Password').readOnly = false;
+    // 	}
+    // },
     imgMenu: function()
     {
 	var xyz = document.getElementById("img_id");
@@ -279,6 +309,82 @@ var a11ypi = {
     // 	if(document.getElementById('server-2').selected)
     // 	    alert("Yes");
     // },
-
+    test:function(e)
+    {
+	if(e.originalTarget instanceof HTMLDocument)
+	{
+	var message = 'Another pop-up blocked';
+	var nb = gBrowser.getNotificationBox();
+	var n = nb.getNotificationWithValue('popup-blocked');
+	if(n) 
+	{
+	    n.label = message;
+	} 
+	else 
+	{
+	    var buttons = [{
+		label: 'Button',
+		accessKey: 'B',
+		popup: 'blockedPopupOptions',
+		callback: null
+	    }];
+	    
+	    const priority = nb.PRIORITY_WARNING_MEDIUM;
+	    nb.appendNotification(message, 'popup-blocked',
+				  'chrome://browser/skin/Info.png',
+				  priority, buttons);
+	}
+	}
+    },
+    testclick:function(e)
+    {
+	alert(e.target.focusNode.parentNode.id);
+    },
+    testContext:function(e)
+    {
+	var sideBar = document.getElementById('sidebar').contentWindow;
+	if(sideBar.location.href == "chrome://a11ypi/content/sidebar.xul")
+	{
+	   //sideBar.document.getElementById('a11ypi-txt').value = content.window.getSelection();
+	    var sel = content.window.getSelection(); //.getRangeAt(0).cloneContents();
+	    sideBar.document.getElementById('a11ypi-txt').value = sel;
+	    var temp = sel.focusNode;
+	    if(sel.focusNode.parentNode.id == '' || sel.focusNode.parentNode.id == 'undefined')
+	    {
+		while(temp.parentNode.tagName != 'BODY')
+		{
+		    temp = temp.parentNode;
+		    if(temp.id)
+		    {
+			var st = content.document.getElementById(temp.id);
+			st.style.borderColor = "red";
+			st.style.borderStyle = "dotted";
+			if(confirm("This is the selection you have made for re-narration.  Do you want to expand the selection?"))
+			{
+			    st.style.borderColor = "";
+			    st.style.borderStyle = "";
+			    continue;
+			}
+			else
+			{
+			    window.open("test_new.html","_blank","height=310,width=500,resizable=yes,toolbar=no,menubar=no,statusbar=yes,fullscreen=true,scrollbars=no,location=no");
+			    
+			    sideBar.document.getElementById('a11ypi-select-id').value = temp.id;
+			    break;
+			}
+		    }
+		}
+	    }
+	    else
+	    {
+		var st = content.document.getElementById(temp.id);
+		st.style.borderColor = "red";
+		st.style.borderStyle = "dotted";
+		sideBar.document.getElementById('a11ypi-select-id').value = sel.focusNode.parentNode.id; 
+	    }
+	}
+    },
+    
 };
 window.addEventListener("load", function () { a11ypi.onLoad(); }, false);
+gBrowser.addEventListener("DOMContentLoaded", a11ypi.test, false);

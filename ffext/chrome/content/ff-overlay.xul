@@ -18,7 +18,12 @@
       </toolbarbutton>
     </toolbar>
   </toolbox>
-
+  <menupopup id ="contentAreaContextMenu">
+    <menuitem label="Re-narrate" oncommand="a11ypi.testContext();"/>
+  </menupopup>
+<notificationbox flex="1" id="nbox">
+  <!-- <browser src="http://mozilla.org"/> -->
+</notificationbox>
   <!-- <menupopup id="viewSidebarMenu"> -->
   <!--   <menuitem key="key_opena11ypiSidebar" observes="viewa11ypiSidebar"  /> -->
   <!-- </menupopup> -->

@@ -24,6 +24,10 @@
 {
 margin-right: 300px;
 }
+#nbox
+{
+    max-height: 0px;
+}
 /* #server-1,#server-2 */
 /* { */
 /* padding-left: 20px; */
