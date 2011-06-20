@@ -25,8 +25,7 @@ def application(environ, start_response):
     url2 =" "
     lang = parameter['lang']
     try:                                                                                                                              
-        if(os.path.getmtime('/var/www/wsgi/a11ypi_dict.json') > os.path.getmtime('/var/www/wsgi/'+ parameter['url'].split(':')[1].spl\
-it('//')[1] + parameter['lang'])):
+        if(os.path.getmtime('/var/www/wsgi/a11ypi_dict.json') > os.path.getmtime('/var/www/wsgi/'+ parameter['url'].split(':')[1].split('//')[1] + parameter['lang'])):
             commands.getoutput('rm /var/www/wsgi/'+ parameter['url'].split(':')[1].split('//')[1] + parameter['lang'])
     except OSError:
         pass    

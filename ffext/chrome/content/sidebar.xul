@@ -1,89 +1,85 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://a11ypi/skin/overlay.css" type="text/css" ?>
 <!DOCTYPE page SYSTEM "chrome://a11ypi/locale/overlay.dtd">
-<page id="a11ypi-sidebar" title="&a11ypiSidebar.title;" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<page id="a11ypi-sidebar" title="&a11ypiSidebar.title;"  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="overlay.js"/>
-  <vbox flex="1" style="overflow-y:scroll;overflow-x:scroll;position:inline;" id="a11ypi-vbox">
-    <label control="a11ypi-lang-rec" value="Language you want to type in:"/>
-    <hbox>
-      <textbox id="a11ypi-lang-rec" flex="1"/>
-    </hbox>
-    <!-- <menulist label="Choose a server"> -->
-    <!--   	<menupopup type="menu" oncommand="a11ypi.testalert();"> -->
-    <!-- 	  <menuitem id="server-1" type="radio" checked="true" value="http://janastu.dyndns.org:82" label="Janastu"/> -->
-    <!-- 	  <menuitem label="Zabbix" id="server-2" type="radio" vaule="http://192.168.100.56:82"/> -->
-    <!-- 	</menupopup> -->
-    <!-- </menulist> -->
-    <menulist label="Select one text block" sizetopopup="always" id="replacement_id">
-      <menupopup id="replacement_pop" onpopupshowing="a11ypi.replacement();" onpopuphiding="a11ypi.clearReplacement();">
-      </menupopup>
-    </menulist>
-    <label control="a11ypi-select-id" value="Selected id:"/>
-    <hbox>
-      <textbox readonly="true" flex="1" id="a11ypi-select-id"/>
-    </hbox>
-    <label control="a11ypi-txt" value="Text of selected id:"/>
-    <hbox>
-      <textbox id="a11ypi-txt"
-	       multiline="true"
-	       wraparound="true"
-	       rows="10"
-	       readonly="true" flex="1"/>
-    </hbox>
-    <label control="a11ypi-foruri" value="text-foruri:"/>
-    <hbox>
-      <textbox id="a11ypi-foruri" readonly="true" flex="1"/>
-    </hbox>
-    <label control="a11ypi-img" value="Selected image:"/>
-    <image id="a11ypi-img"/>
-    <menulist label="Select one image" id="img_id">
-      <menupopup id="img_ids" onpopupshowing="a11ypi.imgMenu();" onpopuphidden="a11ypi.clearImgMenu();">
-      </menupopup>
-    </menulist>
-    <label control="a11ypi-audio" value="Select a file:"/>
-    <hbox>
-      <textbox id="a11ypi-file" readonly="true" flex="1"/>
-    </hbox>
-    <button id="a11ypi-browse" label="Browse" oncommand="a11ypi.filePick();"/>
-    <label control="a11ypi-img-replace" value="URL of the image:"/>
-    <hbox> 
-      <textbox id="a11ypi-img-replace" flex="1" onchange="a11ypi.onImgUrichange();"/>
-      <textbox id="a11ypi-img-foruri" readonly="true" flex="1"/>
-    </hbox>
-    <label value="URL of the audio:"/>
-    <hbox>
-      <textbox id="a11ypi-audio-url" onchange="a11ypi.updateaud();" flex="1"/>
-      <textbox id="a11ypi-audio-foruri" readonly="true" flex="1"/>
-    </hbox>
-    <label control="a11ypi-re-title" value="Title of your re-narration:"/>
-    <hbox>
-      <textbox id="a11ypi-re-title" flex="1"/>
-    </hbox>
-    <label control="a11ypi-re-txt" value="Re-narrate text here"/>
-    <hbox>
-      <textbox id="a11ypi-re-txt" 
-	       multiline="true"  
-	       wraparound="true"
-	       rows="10" flex="1"/>
-    </hbox>
-    <menulist id="blog-list" label="Select a place to blog">
-      <menupopup id="blog">
-<!--	<menuitem label="Janastu" value="Janastu"/> -->
-	<menuitem label="Blogger" value="Blogger"/>
-      </menupopup>
-    </menulist>
-    <label control="a11ypi-blog-link" value="Blogspot link:"/>
-    <hbox>
-      <textbox id="a11ypi-blog-link" flex="1"/>
-    </hbox>
-    <label control="Username" value="Username:"/>
-    <hbox>
-      <textbox id="Username" flex="1"/>
-    </hbox>
-    <label control="Password" value="Password:"/>
-    <hbox>
-      <textbox id="Password" type="password" flex="1"/>      
-    </hbox>
-    <button label="Re-narrate" id="re-narrate-button" oncommand="a11ypi.postRenarration();"/>    
+   <vbox flex="1" style="overflow-y:scroll;overflow-x:scroll;position:inline;" id="a11ypi-vbox">
+     <!-- removed hbox - maybe it was defining a very small box? --> 
+   <iframe id="myfram" flex="1" src="chrome://a11ypi/content/window.xul"/>
+     
+    <!-- <label control="a11ypi-lang-rec" value="Language you want to type in:"/> -->
+<!--     <hbox> -->
+<!--       <textbox id="a11ypi-lang-rec" flex="1"/> -->
+<!--     </hbox> -->
+<!--     <menulist label="Select one text block" sizetopopup="always" id="replacement_id"> -->
+<!--       <menupopup id="replacement_pop" onpopupshowing="a11ypi.replacement();" onpopuphiding="a11ypi.clearReplacement();"> -->
+<!--       </menupopup> -->
+<!--     </menulist> -->
+<!--     <label control="a11ypi-select-id" value="Selected id:"/> -->
+<!--     <hbox> -->
+<!--       <textbox readonly="true" flex="1" id="a11ypi-select-id"/> -->
+<!--     </hbox> -->
+<!--     <label control="a11ypi-txt" value="Text of selected id:"/> -->
+<!--     <hbox> -->
+<!--       <textbox id="a11ypi-txt" -->
+<!-- 	       multiline="true" -->
+<!-- 	       wraparound="true" -->
+<!-- 	       rows="10" -->
+<!-- 	       readonly="true" flex="1"/> -->
+<!--     </hbox> -->
+<!--     <label control="a11ypi-foruri" value="text-foruri:"/> -->
+<!--     <hbox> -->
+<!--       <textbox id="a11ypi-foruri" readonly="true" flex="1"/> -->
+<!--     </hbox> -->
+<!--     <label control="a11ypi-img" value="Selected image:"/> -->
+<!--     <image id="a11ypi-img"/> -->
+<!--     <menulist label="Select one image" id="img_id"> -->
+<!--       <menupopup id="img_ids" onpopupshowing="a11ypi.imgMenu();" onpopuphidden="a11ypi.clearImgMenu();"> -->
+<!--       </menupopup> -->
+<!--     </menulist> -->
+<!--     <label control="a11ypi-audio" value="Select a file:"/> -->
+<!--     <hbox> -->
+<!--       <textbox id="a11ypi-file" readonly="true" flex="1"/> -->
+<!--     </hbox> -->
+<!--     <button id="a11ypi-browse" label="Browse" oncommand="a11ypi.filePick();"/> -->
+<!--     <label control="a11ypi-img-replace" value="URL of the image:"/> -->
+<!--     <hbox>  -->
+<!--       <textbox id="a11ypi-img-replace" flex="1" onchange="a11ypi.onImgUrichange();"/> -->
+<!--       <textbox id="a11ypi-img-foruri" readonly="true" flex="1"/> -->
+<!--     </hbox> -->
+<!--     <label value="URL of the audio:"/> -->
+<!--     <hbox> -->
+<!--       <textbox id="a11ypi-audio-url" onchange="a11ypi.updateaud();" flex="1"/> -->
+<!--       <textbox id="a11ypi-audio-foruri" readonly="true" flex="1"/> -->
+<!--     </hbox> -->
+<!--     <label control="a11ypi-re-title" value="Title of your re-narration:"/> -->
+<!--     <hbox> -->
+<!--       <textbox id="a11ypi-re-title" flex="1"/> -->
+<!--     </hbox> -->
+<!--     <label control="a11ypi-re-txt" value="Re-narrate text here"/> -->
+<!--     <hbox> -->
+<!--       <textbox id="a11ypi-re-txt"  -->
+<!-- 	       multiline="true"   -->
+<!-- 	       wraparound="true" -->
+<!-- 	       rows="10" flex="1"/> -->
+<!--     </hbox> -->
+<!--     <menulist id="blog-list" label="Select a place to blog"> -->
+<!--       <menupopup id="blog"> -->
+<!-- 	<menuitem label="Blogger" value="Blogger"/> -->
+<!--       </menupopup> -->
+<!--     </menulist> -->
+<!--     <label control="a11ypi-blog-link" value="Blogspot link:"/> -->
+<!--     <hbox> -->
+<!--       <textbox id="a11ypi-blog-link" flex="1"/> -->
+<!--     </hbox> -->
+<!--     <label control="Username" value="Username:"/> -->
+<!--     <hbox> -->
+<!--       <textbox id="Username" flex="1"/> -->
+<!--     </hbox> -->
+<!--     <label control="Password" value="Password:"/> -->
+<!--     <hbox> -->
+<!--       <textbox id="Password" type="password" flex="1"/>       -->
+<!--     </hbox> -->
+<!--     <button label="Re-narrate" id="re-narrate-button" oncommand="a11ypi.postRenarration();"/>     -->
   </vbox>
 </page>

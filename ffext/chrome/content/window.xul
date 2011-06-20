@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://a11ypi/skin/overlay.css" type="text/css" ?>
+<!DOCTYPE window>
+<window id="a11ypi-window" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<script src="overlay.js"/>
+<textbox id="window-text" onchange="alert('Hello');"/>
+</window>
